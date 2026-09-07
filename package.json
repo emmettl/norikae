@@ -17,19 +17,28 @@
     "check": "npm test && npm run lint && npm run check:boundary && npm run build",
     "data:toei:audit": "node scripts/toei.mjs audit",
     "data:toei:compile": "node scripts/toei.mjs compile",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "data:preview": "node scripts/build-synthetic-preview.mjs",
+    "predev": "npm run data:preview",
+    "prebuild": "npm run data:preview",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@motionstudies/core": "0.1.0-alpha.2",
+    "@motionstudies/three": "0.1.0-alpha.2",
     "@motionstudies/web": "0.1.0-alpha.2",
+    "@react-three/fiber": "9.7.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "three": "0.185.1"
   },
   "devDependencies": {
     "@babel/parser": "7.29.8",
     "@motionstudies/data": "0.1.0-alpha.2",
+    "@playwright/test": "1.62.1",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
+    "@types/three": "0.185.4",
     "@vitejs/plugin-react": "6.1.1",
     "oxlint": "1.81.0",
     "typescript": "7.0.2",

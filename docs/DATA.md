@@ -25,7 +25,7 @@ Inspect agency, feed_info, routes, trips, stops, stop_times, calendar/calendar_d
 
 Namespace IDs by publisher and release. Preserve canonical Japanese names. A shared name or nearby coordinate can suggest a station complex but cannot establish a timed transfer. A visual line crossing cannot establish a physical level. Join through-running services only with stable source identity. Do not synthesize Yamanote frequency from infrastructure geometry.
 
-The public shell uses authored colors and text only. It includes no official operator logo, map, route badge or source data.
+The public preview uses authored colors, text, synthetic geometry and invented departures. It includes no official operator logo, map, route badge or operator source data. Its separate [preview builder](PLAYER.md) accepts only authored fixture inputs; the importer commands below still do not publish their output.
 
 ## Offline workflow
 

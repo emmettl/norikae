@@ -21,6 +21,17 @@ Research baseline: [Tokyo feasibility study, 6 September 2026](https://github.co
 
 These are tested importer capabilities, not evidence that the real Toei feed has passed inspection. It has not yet been obtained.
 
+## Development playback
+
+- [x] Build a clearly labelled two-line synthetic preview through the offline compiler.
+- [x] Connect the published shared scene, playback clock and camera APIs.
+- [x] Add pause/play, time scrubbing, literal speed controls and route focus.
+- [x] Search Japanese/English source labels and preserve selected station identity across languages.
+- [x] Support desktop/phone layouts, keyboard controls, reduced motion and load/WebGL failures.
+- [x] Exercise the production player in Chromium and iPhone WebKit, including 200% text size.
+
+These checks use synthetic data. The real-feed proof and admission tasks below remain open.
+
 ## TOK 0A — Toei morning proof
 
 - [ ] Obtain authorized ODPT access and the current Toei static GTFS/GTFS-JP archive.

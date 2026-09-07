@@ -11,7 +11,9 @@ Tokyo read through changes of line, level, service pattern and operator. NORIKAE
 
 ## Current state
 
-This repository contains the edition shell, authored theme, shared-package integration, offline GTFS audit/compiler, fixture tests and GitHub Pages deployment. The published page explicitly reports that operator data have not been acquired. It contains no timetable, map geometry, simulated train positions or live feed. The edition remains unnumbered.
+This repository contains an interactive **synthetic development preview**, the offline GTFS audit/compiler and GitHub Pages deployment. The preview uses two fictional lines and authored departures to exercise the published shared renderer, playback, route focus and bilingual station selection. Its data status is labelled throughout; no operator timetable, geometry or live feed has been acquired. The edition remains unnumbered.
+
+See [docs/PLAYER.md](docs/PLAYER.md) for controls, fixture generation, browser checks and integration boundaries.
 
 The [Tokyo feasibility study](https://github.com/emmettl/motionstudies/blob/main/docs/TOKYO.md) remains the canonical research record. Local implementation work is tracked in [docs/ROADMAP.md](docs/ROADMAP.md), with the source contract in [docs/DATA.md](docs/DATA.md).
 
@@ -39,14 +41,13 @@ Start with the audit to discover the actual route IDs and feed coverage. Compila
 ## Ownership
 
 - This repository owns the Tokyo identity, composition, source adapters, fixtures and publication decisions.
-- `@motionstudies/core`, `@motionstudies/web` and the offline `@motionstudies/data` dependency are consumed as exact npm releases with a committed lockfile. The shell uses public identity/theme contracts; the importer reuses the shared GTFS readers and time primitives.
-- Add `@motionstudies/three` when the renderer needs it; extend the boundary check at the same time.
+- `@motionstudies/core`, `@motionstudies/web`, `@motionstudies/three` and the offline `@motionstudies/data` dependency are consumed as exact npm releases with a committed lockfile. The importer reuses shared GTFS readers; the player uses the public network scene and its playback/camera/selection APIs.
 - Shared engines, reusable browser controls and generic data machinery belong in [motionstudies](https://github.com/emmettl/motionstudies). Do not vendor that source or import sibling checkouts.
 
-The boundary check covers source, scripts and tests, verifying exact registry versions, package integrity, public exports and repository-local imports. Importer tests use authored fixtures, including a shared-core playback compatibility check. Real Toei feed compatibility remains to be confirmed after authorized acquisition.
+The boundary check covers source, scripts, unit tests and browser tests, verifying exact registry versions, package integrity, public exports and repository-local imports. Importer and preview tests use authored fixtures. Browser tests exercise the production build in Chromium and iPhone WebKit. Real Toei feed compatibility remains to be confirmed after authorized acquisition.
 
 ## Publishing
 
 GitHub Actions validates pull requests. A push to `main` validates, builds and deploys the static `dist` artifact to GitHub Pages. Pages uses GitHub Actions as its build source and the `github-pages` environment. No deployment secret or external hosting account is required.
 
-The public build currently contains application code only. Source acquisition is an offline step: credentials, raw archives and recorded feeds do not belong in the web bundle or repository. No refresh schedule is enabled before an approved source pipeline exists.
+The public build contains application code and a clearly labelled synthetic fixture generated before development/build. That generator accepts no external archive. Operator source acquisition is an offline step: credentials, raw archives and recorded feeds do not belong in the web bundle or repository. No source refresh schedule is enabled before an approved pipeline exists.

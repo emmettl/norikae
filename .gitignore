@@ -14,3 +14,5 @@ playwright-report/
 sources/
 recordings/
 *.zip
+
+/public/data/synthetic-preview.json
