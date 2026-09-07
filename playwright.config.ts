@@ -7,7 +7,14 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   forbidOnly: true,
-  reporter: 'list',
+  reporter: process.env.CI
+    ? [
+        ['list'],
+        ['github'],
+        ['html', { outputFolder: 'playwright-report', open: 'never' }],
+        ['./scripts/playwright-summary-reporter.mjs'],
+      ]
+    : 'list',
   use: { baseURL: 'http://127.0.0.1:4184/norikae/', trace: 'retain-on-failure', screenshot: 'only-on-failure' },
   projects: [
     { name: 'desktop-chromium', use: { ...devices['Desktop Chrome'] } },
