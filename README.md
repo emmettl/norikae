@@ -51,3 +51,7 @@ The boundary check covers source, scripts, unit tests and browser tests, verifyi
 GitHub Actions validates pull requests. A push to `main` validates, builds and deploys the static `dist` artifact to GitHub Pages. Pages uses GitHub Actions as its build source and the `github-pages` environment. No deployment secret or external hosting account is required.
 
 The public build contains application code and a clearly labelled synthetic fixture generated before development/build. That generator accepts no external archive. Operator source acquisition is an offline step: credentials, raw archives and recorded feeds do not belong in the web bundle or repository. No source refresh schedule is enabled before an approved pipeline exists.
+
+## Standard selection labels
+
+The shared `@motionstudies/three` alpha.4 renderer gives the selected station first label priority, then the selected route’s terminals (including branch endpoints), then intermediate stops. Selecting a service uses its own endpoints. Clearing selection restores normal station ranking. The rule applies to map clicks and search/picker selection in both geographic and diagram layouts. See the [Motion Studies edition contract](https://github.com/emmettl/motionstudies/blob/main/docs/EDITIONS.md#selection-and-station-labels).
