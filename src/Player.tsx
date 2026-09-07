@@ -106,7 +106,11 @@ export function Player() {
     setPlaying((value) => !value)
   }
   const failGraphics = useCallback(() => { setGraphicsAvailable(false); setPlaying(false) }, [])
-  const active = visibleSnapshot?.trains.filter((train) => time >= train.start && time <= train.end).length ?? 0
+  const countableTrains = useMemo(() => {
+    const stationTrainIds = selectedStation ? new Set(selectedStation.trainIds) : undefined
+    return visibleSnapshot?.trains.filter((train) => !stationTrainIds || stationTrainIds.has(train.id)) ?? []
+  }, [visibleSnapshot, selectedStation])
+  const active = countableTrains.filter((train) => train.realtime?.status !== 'cancelled' && time >= train.start && time <= train.end).length
 
   return (
     <div className="player" data-playing={playing}>
