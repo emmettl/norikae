@@ -5,7 +5,7 @@
   "type": "module",
   "description": "NORIKAE — A Tokyo motion study",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -43,5 +43,6 @@
     "oxlint": "1.81.0",
     "typescript": "7.0.2",
     "vite": "8.2.2"
-  }
+  },
+  "packageManager": "npm@11.19.0"
 }

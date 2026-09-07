@@ -19,7 +19,7 @@ The [Tokyo feasibility study](https://github.com/emmettl/motionstudies/blob/main
 
 ## Development
 
-Node 22.12 or newer, npm:
+Node 24 LTS (`nvm use`) and npm 11.19.0:
 
 ```sh
 npm ci

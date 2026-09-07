@@ -29,7 +29,7 @@ The public preview uses authored colors, text, synthetic geometry and invented d
 
 ## Offline workflow
 
-Prerequisites: Node 22.12+, `npm ci`, and `unzip` on PATH. macOS supplies `unzip`; Ubuntu CI also includes it. Tests and the synthetic example additionally need `zip`.
+Prerequisites: Node 24 LTS (`nvm use`), npm 11.19.0, `npm ci`, and `unzip` on PATH. macOS supplies `unzip`; Ubuntu CI also includes it. Tests and the synthetic example additionally need `zip`.
 
 1. Place the authorized static GTFS archive at `sources/toei.zip`.
 2. Inventory the actual archive and inspect its routes, feed validity, calendars, table counts, columns and optional-table omissions:
