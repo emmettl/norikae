@@ -1,0 +1,4 @@
+table_name,field_name,language,translation,record_id,field_value
+stops,stop_name,en,"Fictional, Central",A,
+stops,stop_name,en,Fictional East,,架空東
+routes,route_long_name,en,Fictional Loop,DEMO-LOOP,

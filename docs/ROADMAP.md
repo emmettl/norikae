@@ -10,6 +10,17 @@ Research baseline: [Tokyo feasibility study, 6 September 2026](https://github.co
 - [x] Pull-request validation and automatic Pages deployment configuration.
 - [x] Explicit public state while no source-backed motion exists.
 
+## Offline tooling
+
+- [x] ZIP table inventory, route discovery, source fingerprint and service coverage report.
+- [x] Explicit route/service-day compiler using published shared data primitives.
+- [x] Namespace identifiers; preserve Japanese names and standard source translations.
+- [x] Segment source shapes with forward loop progression and explicit diagnostic fallbacks.
+- [x] Write a deterministic network snapshot, source records and payload/geometry audit.
+- [x] Test calendar variants, exceptions, overnight calls, loop closure, invalid inputs and the CLI in CI.
+
+These are tested importer capabilities, not evidence that the real Toei feed has passed inspection. It has not yet been obtained.
+
 ## TOK 0A — Toei morning proof
 
 - [ ] Obtain authorized ODPT access and the current Toei static GTFS/GTFS-JP archive.

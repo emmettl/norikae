@@ -11,7 +11,7 @@ Tokyo read through changes of line, level, service pattern and operator. NORIKAE
 
 ## Current state
 
-This repository contains the edition shell, authored theme, shared-package integration, validation and GitHub Pages deployment. The published page explicitly reports that source data have not been acquired. It contains no timetable, map geometry, simulated train positions or live feed. The edition remains unnumbered.
+This repository contains the edition shell, authored theme, shared-package integration, offline GTFS audit/compiler, fixture tests and GitHub Pages deployment. The published page explicitly reports that operator data have not been acquired. It contains no timetable, map geometry, simulated train positions or live feed. The edition remains unnumbered.
 
 The [Tokyo feasibility study](https://github.com/emmettl/motionstudies/blob/main/docs/TOKYO.md) remains the canonical research record. Local implementation work is tracked in [docs/ROADMAP.md](docs/ROADMAP.md), with the source contract in [docs/DATA.md](docs/DATA.md).
 
@@ -25,16 +25,25 @@ npm run dev
 npm run check
 ```
 
-Vite prints the local URL, including the `/norikae/` base path. `npm run check` runs lint, the shared-package boundary check, TypeScript and the production build. `npm run preview` serves `dist` for a production smoke check.
+Vite prints the local URL, including the `/norikae/` base path. `npm run check` runs the importer tests, lint, shared-package boundary check, app TypeScript and production build. `npm run preview` serves `dist` for a production smoke check. Importer commands need `unzip` on PATH; the tests also use `zip` to create temporary archives (available on macOS and the Ubuntu CI runner).
+
+## Offline importer
+
+```sh
+npm run data:toei:audit -- --archive sources/toei.zip
+npm run data:toei:compile -- --help
+```
+
+Start with the audit to discover the actual route IDs and feed coverage. Compilation requires an explicit service date, route IDs and a provenance JSON file. It writes a shared network snapshot, source-label records and audit report under ignored `sources/`; it does not publish them. [The full workflow and supported scope](docs/DATA.md#offline-workflow) include a runnable synthetic example.
 
 ## Ownership
 
 - This repository owns the Tokyo identity, composition, source adapters, fixtures and publication decisions.
-- `@motionstudies/core` and `@motionstudies/web` are consumed as exact npm releases with a committed lockfile. The shell uses the public identity/theme contracts and theme application helper.
-- Add `@motionstudies/data` and `@motionstudies/three` when the compiler and renderer actually need them; extend the boundary check at the same time.
+- `@motionstudies/core`, `@motionstudies/web` and the offline `@motionstudies/data` dependency are consumed as exact npm releases with a committed lockfile. The shell uses public identity/theme contracts; the importer reuses the shared GTFS readers and time primitives.
+- Add `@motionstudies/three` when the renderer needs it; extend the boundary check at the same time.
 - Shared engines, reusable browser controls and generic data machinery belong in [motionstudies](https://github.com/emmettl/motionstudies). Do not vendor that source or import sibling checkouts.
 
-The boundary check verifies exact registry versions, package integrity, public exports and repository-local imports. There are no application tests yet because the initial page is static; add meaningful tests with the first source adapter and playback behavior.
+The boundary check covers source, scripts and tests, verifying exact registry versions, package integrity, public exports and repository-local imports. Importer tests use authored fixtures, including a shared-core playback compatibility check. Real Toei feed compatibility remains to be confirmed after authorized acquisition.
 
 ## Publishing
 

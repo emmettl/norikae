@@ -11,7 +11,7 @@ if (manifest.workspaces) throw new Error('An edition must consume installed pack
 try { await access('packages'); throw new Error('Shared package source belongs in Motion Studies') }
 catch (error) { if (error.code !== 'ENOENT') throw error }
 const exported = new Map()
-for (const shortName of ['core', 'web']) {
+for (const shortName of ['core', 'data', 'web']) {
   const name = `@motionstudies/${shortName}`
   const version = declared[name]
   if (!/^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc)\.\d+)?$/.test(version ?? '')) throw new Error(`Expected an exact registry version: ${name}`)
@@ -44,5 +44,5 @@ async function visit(directory) {
     }
   }
 }
-for (const directory of ['src', 'scripts']) await visit(directory)
+for (const directory of ['src', 'scripts', 'tests']) await visit(directory)
 console.log('NORIKAE uses pinned npm releases and declared public imports.')
