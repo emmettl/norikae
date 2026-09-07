@@ -1,0 +1,9 @@
+{
+  "kind": "synthetic-fixture",
+  "publisher": "NORIKAE test fixture author",
+  "sourceUrl": "https://example.org/synthetic-gtfs",
+  "retrievedAt": "2026-09-07T00:00:00Z",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "attribution": "Entirely synthetic test data; no operator timetable or geometry"
+}

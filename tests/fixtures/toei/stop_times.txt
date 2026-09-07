@@ -1,0 +1,10 @@
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,shape_dist_traveled,timepoint
+loop,07:00:00,07:01:00,A,1,0,1
+loop,07:05:00,07:06:00,B,2,1,1
+loop,07:10:00,07:11:00,C,3,2,1
+loop,07:15:00,07:16:00,D,4,3,1
+loop,07:20:00,07:20:00,A,5,4,1
+extra,07:30:00,07:30:00,A,1,0,1
+extra,07:35:00,07:35:00,B,2,1,1
+night,24:10:00,24:10:00,A,1,0,1
+night,24:20:00,24:20:00,B,2,1,1

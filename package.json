@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "description": "NORIKAE — A Tokyo motion study",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -p tsconfig.json && vite build",
@@ -12,7 +14,10 @@
     "typecheck": "tsc -p tsconfig.json",
     "lint": "oxlint",
     "check:boundary": "node scripts/check-boundary.mjs",
-    "check": "npm run lint && npm run check:boundary && npm run build"
+    "check": "npm test && npm run lint && npm run check:boundary && npm run build",
+    "data:toei:audit": "node scripts/toei.mjs audit",
+    "data:toei:compile": "node scripts/toei.mjs compile",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@motionstudies/core": "0.1.0-alpha.2",
@@ -22,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/parser": "7.29.8",
+    "@motionstudies/data": "0.1.0-alpha.2",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "6.1.1",

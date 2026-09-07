@@ -1,0 +1,6 @@
+shape_id,shape_pt_lat,shape_pt_lon,shape_pt_sequence,shape_dist_traveled
+square,35.700,139.700,0,0
+square,35.700,139.710,1,1
+square,35.710,139.710,2,2
+square,35.710,139.700,3,3
+square,35.700,139.700,4,4

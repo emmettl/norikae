@@ -1,0 +1,6 @@
+stop_id,stop_name,stop_lat,stop_lon,location_type,parent_station,platform_code
+P,架空駅,,,1,,
+A,"架空, ""中央""",35.700,139.700,0,P,1
+B,架空東,35.700,139.710,0,,
+C,架空北東,35.710,139.710,0,,
+D,架空北西,35.710,139.700,0,,
