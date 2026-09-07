@@ -24,3 +24,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Desktop and phone playback tests
+        run: npm run test:e2e
