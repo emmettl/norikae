@@ -24,9 +24,9 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@motionstudies/core": "0.1.0-alpha.8",
-    "@motionstudies/three": "0.1.0-alpha.8",
-    "@motionstudies/web": "0.1.0-alpha.8",
+    "@motionstudies/core": "0.1.0-alpha.9",
+    "@motionstudies/three": "0.1.0-alpha.9",
+    "@motionstudies/web": "0.1.0-alpha.9",
     "@react-three/fiber": "9.7.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/parser": "7.29.8",
-    "@motionstudies/data": "0.1.0-alpha.8",
+    "@motionstudies/data": "0.1.0-alpha.9",
     "@playwright/test": "1.63.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
