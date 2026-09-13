@@ -1,3 +1,5 @@
+import { useJsonAsset } from '@motionstudies/web/use-json-asset'
+import { createActiveTimetableVehicleCounter } from '@motionstudies/core/domain/vehicle-counts'
 import StationDeparturesCard from './StationDeparturesCard'
 import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { buildRouteIndex, buildStationIndex, type StationIndexEntry, type NetworkSnapshot } from '@motionstudies/core/domain/network'
@@ -5,7 +7,7 @@ import { foldSearchText } from '@motionstudies/core/search-text'
 import type { MapCameraCommand } from '@motionstudies/three/NationalNetworkScene'
 import { createDataUrlResolver } from '@motionstudies/web/data-url'
 import { identity } from './edition'
-import { formatTime, parsePreview, type PreviewData } from './preview-data'
+import { formatTime, parsePreview } from './preview-data'
 
 const Scene = lazy(() => import('@motionstudies/three/NationalNetworkScene').then(({ NationalNetworkScene }) => ({ default: NationalNetworkScene })))
 const dataUrl = createDataUrlResolver(`${import.meta.env.BASE_URL}data`)
@@ -27,9 +29,7 @@ class SceneBoundary extends Component<{ children: ReactNode; onError: () => void
 }
 
 export function Player() {
-  const [data, setData] = useState<PreviewData>()
-  const [loadError, setLoadError] = useState(false)
-  const [attempt, setAttempt] = useState(0)
+  const { data, error: loadError, retry } = useJsonAsset(dataUrl('synthetic-preview.json'), true, parsePreview)
   const [time, setTime] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [rate, setRate] = useState(30)
@@ -43,15 +43,8 @@ export function Player() {
   const [compact, setCompact] = useState(() => matchMedia('(max-width: 700px)').matches)
 
   useEffect(() => {
-    const controller = new AbortController()
-    setLoadError(false)
-    fetch(dataUrl('synthetic-preview.json'), { signal: controller.signal })
-      .then((response) => { if (!response.ok) throw new Error('Preview unavailable'); return response.json() })
-      .then(parsePreview)
-      .then((value) => { if (!controller.signal.aborted) { setData(value); setTime(value.snapshot.metadata.focusTime) } })
-      .catch(() => { if (!controller.signal.aborted) setLoadError(true) })
-    return () => controller.abort()
-  }, [attempt])
+    if (data) setTime(data.snapshot.metadata.focusTime)
+  }, [data])
 
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)')
@@ -107,7 +100,8 @@ export function Player() {
     setPlaying((value) => !value)
   }
   const failGraphics = useCallback(() => { setGraphicsAvailable(false); setPlaying(false) }, [])
-  const active = visibleSnapshot?.trains.filter((train) => time >= train.start && time <= train.end).length ?? 0
+  const countActiveTrains = useMemo(() => createActiveTimetableVehicleCounter(visibleSnapshot?.trains ?? []), [visibleSnapshot])
+  const active = countActiveTrains(time)
 
   return (
     <div className="player" data-playing={playing}>
@@ -119,7 +113,7 @@ export function Player() {
         <section className="viewer" aria-label="Synthetic railway preview">
           <div className="viewer-heading"><div><span className="eyebrow">DEVELOPMENT PREVIEW</span><h2>A loop and a crossing</h2></div><span className="active-count" data-testid="active-count">{active} trains active</span></div>
           <div className="map" role="region" aria-label="Railway map. Press Space to play or pause." tabIndex={0} onKeyDown={(event) => { if (event.target === event.currentTarget && event.code === 'Space') { event.preventDefault(); toggle() } }}>
-            {loadError ? <div className="map-message" role="alert"><h3>Preview data could not be loaded</h3><p>Check your connection and try again.</p><button onClick={() => setAttempt((value) => value + 1)}>Retry loading</button></div>
+            {loadError ? <div className="map-message" role="alert"><h3>Preview data could not be loaded</h3><p>Check your connection and try again.</p><button onClick={retry}>Retry loading</button></div>
               : !data || !snapshot || !reference || !visibleSnapshot ? <p className="map-message" role="status">Loading synthetic study…</p>
               : !graphicsAvailable ? <div className="map-message" role="status"><h3>3D view unavailable</h3><p>This browser needs WebGL 2. You can still inspect stations and scrub the timetable below.</p></div>
               : <SceneBoundary onError={failGraphics}><Suspense fallback={<p className="map-message" role="status">Loading railway view…</p>}><Scene
