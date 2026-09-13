@@ -1,3 +1,4 @@
+import StationDeparturesCard from './StationDeparturesCard'
 import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { buildRouteIndex, buildStationIndex, type StationIndexEntry, type NetworkSnapshot } from '@motionstudies/core/domain/network'
 import { foldSearchText } from '@motionstudies/core/search-text'
@@ -149,7 +150,10 @@ export function Player() {
           <p className="search-count" aria-live="polite">{data ? `${matches.length} stations` : 'Loading stations…'}</p>
           <ul className="station-list">{matches.map((station) => <li key={station.stopIndexes[0]}><button aria-pressed={station === selectedStation} onClick={() => selectStation(station)}><span>{station.name}</span><span aria-hidden="true">↗</span></button></li>)}</ul>
           {query && !matches.length && data && <p className="empty-search">No matching stations. Try another name or select all lines.</p>}
-          {selectedStation && <section className="station-detail" aria-label="Selected station"><div><span className="eyebrow">SELECTED STATION</span><button aria-label="Clear station selection" onClick={() => setStopId('')}>×</button></div><h3>{selectedStation.name}</h3><p>{selectedStation.routes.map((route) => routeName(route.name)).join(' · ')}</p><p>{selectedStation.trainIds.length} scheduled test trips in this study</p></section>}
+          {selectedStation && <section className="station-detail" aria-label="Selected station"><div><span className="eyebrow">SELECTED STATION</span><button aria-label="Clear station selection" onClick={() => setStopId('')}>×</button></div>{visibleSnapshot && <StationDeparturesCard snapshot={visibleSnapshot} name={selectedStation.name} time={time}
+            labels={language === 'ja' ? {station:'駅',departures:'発車',time:'時刻',destination:'行先',platform:'番線',expected:'案内',empty:'この時間帯の発車はありません'} : {empty:'No further departures in this test window.'}}
+            note={language === 'ja' ? '架空の路線・駅・時刻表 · 実際の運行情報ではありません' : 'Synthetic lines, stations and schedules · not real services'}
+            onSelect={train => { const call = train.stops.find(([index,, departure]) => selectedStation.stopIndexes.includes(index) && departure >= time); if (call) { setTime(call[2]); setPlaying(false) } }} />}<p>{selectedStation.routes.map((route) => routeName(route.name)).join(' · ')}</p><p>{selectedStation.trainIds.length} scheduled test trips in this study</p></section>}
           <p className="fixture-note">The loop and crossing are separate fictional lines. Their visual intersections do not establish transfers.</p>
           {reducedMotion && <p className="motion-note">Reduced motion is enabled. Playback starts paused; press Play when you want movement.</p>}
         </aside>

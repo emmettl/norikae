@@ -62,9 +62,9 @@ input::placeholder { color: var(--muted); }
 .empty-search { font-size: .875rem; color: var(--muted); line-height: 1.5; margin-top: 10px; }
 .station-detail { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 10px; }
 .station-detail > div { display: flex; justify-content: space-between; align-items: center; }
-.station-detail button { border: 0; background: transparent; font-size: 1.25rem; }
+.station-detail > div > button { border: 0; background: transparent; font-size: 1.25rem; }
 .station-detail h3 { font-size: 1rem; line-height: 1.4; margin-bottom: 8px; }
-.station-detail p, .fixture-note, .motion-note { font-size: .875rem; color: var(--muted); line-height: 1.6; }
+.station-detail > p, .fixture-note, .motion-note { font-size: .875rem; color: var(--muted); line-height: 1.6; }
 .fixture-note { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 22px; }
 .motion-note { margin-top: 12px; }
 footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; color: var(--muted); font-size: .75rem; line-height: 1.6; }
