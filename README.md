@@ -48,6 +48,8 @@ The boundary check covers source, scripts, unit tests and browser tests, verifyi
 
 ## Publishing
 
+The public synthetic preview is served at [motionstudies.app/norikae](https://motionstudies.app/norikae/), with [GitHub Pages](https://emmettl.github.io/norikae/) retained as a mirror. A separate Cloudflare workflow publishes the exact artifact from a successful main Pages workflow; failed checks do not publish. See [series hosting](https://github.com/emmettl/motionstudies/blob/main/docs/HOSTING.md) for the shared publication and rollback contract.
+
 GitHub Actions validates pull requests. A push to `main` validates, builds and deploys the static `dist` artifact to GitHub Pages. Pages uses GitHub Actions as its build source and the `github-pages` environment. No deployment secret or external hosting account is required.
 
 The public build contains application code and a clearly labelled synthetic fixture generated before development/build. That generator accepts no external archive. Operator source acquisition is an offline step: credentials, raw archives and recorded feeds do not belong in the web bundle or repository. No source refresh schedule is enabled before an approved pipeline exists.
