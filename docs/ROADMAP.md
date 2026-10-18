@@ -1,5 +1,7 @@
 # NORIKAE implementation roadmap
 
+> Programme status: parked since 13 September 2026. This retained implementation wishlist does not authorize renewed source acquisition or timetable publication. The synthetic preview and maintenance checks remain available; see the [central Tokyo brief](https://github.com/emmettl/motionstudies/blob/main/docs/TOKYO.md).
+
 Research baseline: [Tokyo feasibility study, 6 September 2026](https://github.com/emmettl/motionstudies/blob/main/docs/TOKYO.md). This roadmap implements that study; it does not change its evidence or catalogue gates.
 
 ## Foundation
