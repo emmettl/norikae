@@ -1,7 +1,8 @@
+import { useMediaQuery } from '@motionstudies/web/use-media-query'
 import { useJsonAsset } from '@motionstudies/web/use-json-asset'
 import { countableVehicleTrains, createActiveTimetableVehicleCounter } from '@motionstudies/core/domain/vehicle-counts'
 import StationDeparturesCard from './StationDeparturesCard'
-import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { Component, lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useMemo, useState, type ReactNode } from 'react'
 import { buildRouteIndex, buildStationIndex, type StationIndexEntry, type NetworkSnapshot } from '@motionstudies/core/domain/network'
 import { foldSearchText } from '@motionstudies/core/search-text'
 import type { MapCameraCommand } from '@motionstudies/three/NationalNetworkScene'
@@ -39,23 +40,22 @@ export function Player() {
   const [stopId, setStopId] = useState('')
   const [camera, setCamera] = useState<MapCameraCommand>({ id: 0, action: 'reset' })
   const [graphicsAvailable, setGraphicsAvailable] = useState(hasWebGL)
-  const [reducedMotion, setReducedMotion] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches)
-  const [compact, setCompact] = useState(() => matchMedia('(max-width: 700px)').matches)
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const previousMotion = useRef(reducedMotion)
+  useLayoutEffect(() => {
+    if (previousMotion.current !== reducedMotion && reducedMotion) setPlaying(false)
+    previousMotion.current = reducedMotion
+  }, [reducedMotion])
+  const compact = useMediaQuery('(max-width: 700px)')
 
   useEffect(() => {
     if (data) setTime(data.snapshot.metadata.focusTime)
   }, [data])
 
   useEffect(() => {
-    const preference = matchMedia('(prefers-reduced-motion: reduce)')
-    const viewport = matchMedia('(max-width: 700px)')
-    const resized = () => setCompact(viewport.matches)
-    const changed = () => { setReducedMotion(preference.matches); if (preference.matches) setPlaying(false) }
     const hidden = () => { if (document.hidden) setPlaying(false) }
-    preference.addEventListener('change', changed)
-    viewport.addEventListener('change', resized)
     document.addEventListener('visibilitychange', hidden)
-    return () => { preference.removeEventListener('change', changed); viewport.removeEventListener('change', resized); document.removeEventListener('visibilitychange', hidden) }
+    return () => { document.removeEventListener('visibilitychange', hidden) }
   }, [])
 
   const translate = useCallback((id: string, field: string, fallback: string) => {
