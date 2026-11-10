@@ -19,7 +19,7 @@ The [Tokyo feasibility study](https://github.com/emmettl/motionstudies/blob/main
 
 ## Development
 
-Node 24 LTS (`nvm use`) and npm 11.21.1:
+Node 24 LTS (`nvm use`) and npm 12.2.2:
 
 ```sh
 npm ci
@@ -59,3 +59,5 @@ The public build contains application code and a clearly labelled synthetic fixt
 The shared `@motionstudies/three` alpha.42 renderer gives the selected station first label priority, then the selected route’s terminals (including branch endpoints), then intermediate stops. Selecting a service uses its own endpoints. Clearing selection restores normal station ranking. The rule applies to map clicks and search/picker selection in both geographic and diagram layouts. See the [Motion Studies edition contract](https://github.com/emmettl/motionstudies/blob/main/docs/EDITIONS.md#selection-and-station-labels).
 
 Shared dependencies pin the published `0.1.0-alpha.42` release; adoption does not change this edition’s data scope.
+
+Development targets Node 26 and npm 12.2.2. Shared Motion Studies packages are pinned to 1.0.0; `npm run check:stack` validates the adopted baseline through `@motionstudies/tooling`. Edition-specific data, boundary and publication checks remain local.
